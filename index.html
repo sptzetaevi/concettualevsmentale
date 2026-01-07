@@ -25,12 +25,12 @@
     }
 
     .wrap{
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 18px;
     }
 
-    /* Piccolo logo */
+    /* Brand */
     .brand{
       display: flex;
       align-items: center;
@@ -60,94 +60,35 @@
       opacity: 0.85;
     }
 
-    .layout{
-      display: grid;
-      grid-template-columns: 260px 1fr 1fr;
-      gap: 16px;
-      align-items: start;
-    }
-
-    .card{
+    /* Left sticky action bar */
+    .actionbar{
       background: rgba(255,255,255,0.35);
       border-radius: var(--radius);
       padding: 14px;
       box-shadow: var(--shadow);
-    }
-
-    .panel{
-      background: rgba(255,255,255,0.25);
-      border-radius: var(--radius);
-      padding: 12px;
-      box-shadow: var(--shadow);
-    }
-
-    .panel-title{
-      margin: 0 0 10px;
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-    }
-
-    .split{
-      display: grid;
-      grid-template-rows: auto 1px auto;
-      gap: 10px;
-    }
-
-    .divider{
-      height: 1px;
-      background: rgba(0,0,0,0.25);
-      border-radius: 1px;
-    }
-
-    .section{
-      background: rgba(255,255,255,0.55);
-      border-radius: 12px;
-      padding: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-
-    .section h2{
-      margin: 0 0 8px;
-      font-size: 14px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-    }
-
-    ul{
-      margin: 0;
-      padding-left: 18px;
-      line-height: 1.45;
-      font-size: 14.5px;
-    }
-
-    .left{
-      display: grid;
-      gap: 12px;
-    }
-
-    /* Sticky area (desktop/tablet) */
-    .sticky{
+      margin-bottom: 14px;
       position: sticky;
       top: 12px;
-      display: grid;
+      z-index: 900;
+      display: flex;
+      align-items: center;
       gap: 12px;
+      flex-wrap: wrap;
     }
 
     .bigbtn{
-      width: 100%;
       border: 0;
       border-radius: var(--radius);
       background: var(--card);
       color: var(--text);
       box-shadow: var(--shadow);
-      padding: 18px 14px;
-      font-size: 18px;
+      padding: 14px 16px;
+      font-size: 16px;
       font-weight: 900;
       cursor: pointer;
       text-align: center;
       transition: transform .12s ease, box-shadow .12s ease;
+      flex: 0 0 auto;
     }
     .bigbtn:hover{ box-shadow: 0 10px 26px rgba(0,0,0,0.16); transform: scale(1.01); }
     .bigbtn:active{ transform: scale(0.99); }
@@ -163,9 +104,67 @@
       font-size: 13.5px;
       line-height: 1.4;
       border: 1px solid var(--muted);
+      flex: 1 1 260px;
     }
 
-    /* MODAL */
+    /* Two main columns */
+    .cols{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel{
+      background: rgba(255,255,255,0.25);
+      border-radius: var(--radius);
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel-title{
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+    }
+
+    .block{
+      background: rgba(255,255,255,0.55);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin-bottom: 10px;
+    }
+
+    .block h3{
+      margin: 0 0 8px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    ul{
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.45;
+      font-size: 14.5px;
+    }
+
+    footer{
+      margin-top: 16px;
+      padding: 14px 12px;
+      text-align: center;
+      font-size: 13px;
+      opacity: 0.85;
+      background: rgba(255,255,255,0.35);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* Modal */
     .modal-backdrop{
       position: fixed;
       inset: 0;
@@ -232,34 +231,11 @@
     }
     .close:hover{ background: rgba(0,0,0,0.06); }
 
-    /* Footer */
-    footer{
-      margin-top: 16px;
-      padding: 14px 12px;
-      text-align: center;
-      font-size: 13px;
-      opacity: 0.85;
-      background: rgba(255,255,255,0.35);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    /* RESPONSIVE: su mobile la colonna sinistra diventa barra sticky in alto */
+    /* Responsive */
     @media (max-width: 900px){
-      .layout{ grid-template-columns: 1fr; }
-
-      /* La "card" sinistra diventa sticky top bar */
-      .card.left{
-        position: sticky;
-        top: 0;
-        z-index: 900;
-        border-radius: 0 0 var(--radius) var(--radius);
-      }
-      .sticky{
-        position: static; /* evita doppio sticky dentro lo sticky */
-      }
-
+      .cols{ grid-template-columns: 1fr; }
       .modal-actions{ grid-template-columns: 1fr; }
+      .actionbar{ top: 0; border-radius: 0 0 var(--radius) var(--radius); }
     }
   </style>
 </head>
@@ -267,7 +243,6 @@
 <body>
   <main class="wrap">
 
-    <!-- Logo / Brand -->
     <header class="brand" aria-label="Mappificio">
       <div class="brand-mark" aria-hidden="true">M</div>
       <div>
@@ -276,80 +251,67 @@
       </div>
     </header>
 
-    <div class="layout">
+    <section class="actionbar" aria-label="Costruzione mappa">
+      <button class="bigbtn" type="button" id="openModalBtn">
+        Costruisci una mappa
+      </button>
+      <div class="note">
+        Clicca il bottone e scegli il tipo di mappa: <strong>CONCETTUALE</strong> oppure <strong>MENTALE</strong>.
+      </div>
+    </section>
 
-      <!-- SINISTRA -->
-      <aside class="card left">
-        <div class="sticky">
-          <button class="bigbtn" type="button" id="openModalBtn">
-            Costruisci una mappa
-          </button>
+    <section class="cols" aria-label="Informazioni sulle mappe">
 
-          <div class="note">
-            Clicca il bottone e scegli il tipo di mappa:
-            <strong>CONCETTUALE</strong> oppure <strong>MENTALE</strong>.
-          </div>
+      <!-- COLONNA: MENTALE -->
+      <article class="panel">
+        <h2 class="panel-title">Mentale</h2>
+
+        <div class="block">
+          <h3>Caratteristiche</h3>
+          <ul>
+            <li>Le mappe mentali devono avere uno sviluppo a <strong>RAGGERA</strong>: al centro c’è l’argomento principale, che origina tutti gli altri concetti.</li>
+            <li>Possono svilupparsi anche con una struttura <strong>RAMIFICATA</strong> (struttura ad albero): da un concetto se ne collegano altri, tutti associati a quello.</li>
+            <li>Il criterio di produzione è di tipo <strong>ASSOCIAZIONISTA</strong>. Esempio: se devo parlare di scuola, associo tutto ciò che è logicamente inerente all’argomento.</li>
+            <li>La gerarchia tra i concetti <strong>NON ASSOLUTA</strong>: dipende dal contesto e dal momento. La mappa risponde ai processi associativi personali (conoscenze, cultura, stimoli, ecc.).</li>
+            <li>La mappa ha una forte <strong>CONNOTABILITÀ GRAFICA</strong>: diventa un disegno con una struttura facilmente riconoscibile, sia nel complesso sia nelle sue parti. I collegamenti possono essere linee dritte o curve (se possibile). Non c’è mai alcuna parola sull’elemento di collegamento.</li>
+          </ul>
         </div>
-      </aside>
 
-      <!-- CENTRO: CARATTERISTICHE -->
-      <section class="panel" aria-label="Caratteristiche">
-        <h1 class="panel-title">Caratteristiche</h1>
-
-        <div class="split">
-          <div class="section">
-            <h2>Mentale</h2>
-            <ul>
-              <li>Le mappe mentali devono avere uno sviluppo a raggiera: al centro c’è l’argomento principale, che origina tutti gli altri concetti.</li>
-              <li>Possono svilupparsi anche con una struttura ramificata (struttura ad albero): da un concetto se ne collegano altri, tutti associati a quello.</li>
-              <li>Il criterio di produzione è di tipo associazionista. Esempio: se devo parlare di <strong>SCUOLA</strong>, associo tutto ciò che è logicamente inerente all’argomento.</li>
-              <li>La gerarchia tra i concetti non è assoluta: dipende dal contesto e dal momento. La mappa risponde ai processi associativi personali (conoscenze, cultura, stimoli, ecc.).</li>
-              <li>La mappa ha una forte connotabilità grafica: diventa un disegno con una struttura facilmente riconoscibile, sia nel complesso sia nelle sue parti. I collegamenti possono essere linee dritte o curve (se possibile). Non c’è mai alcuna parola sull’elemento di collegamento.</li>
-            </ul>
-          </div>
-
-          <div class="divider" role="separator" aria-label="Separatore"></div>
-
-          <div class="section">
-            <h2>Concettuale</h2>
-            <ul>
-              <li>Le mappe concettuali rispondono sempre a una <strong>domanda focale</strong>: una domanda su un argomento che si conosce e sul quale ci si vuole sfidare nel provare a rispondere. La domanda focale dovrebbe essere pensata da chi fa la mappa.</li>
-              <li>La struttura della mappa va dall’alto verso il basso: il primo concetto va messo in alto, al centro, ed è il primo a rispondere alla domanda focale. Gli altri concetti si legano al primo e scendono verso il basso.</li>
-              <li>La mappa concettuale è basata sul principio <strong>confessionista</strong>: rappresenta al meglio le <strong>RELAZIONI</strong> tra concetti. Per questa ragione si scrive in modo essenziale, senza articoli, aggettivi, ecc.</li>
-              <li>Ogni connessione è rappresentata da una <strong>freccia</strong> che ha un’<strong>etichetta</strong>. Le etichette sono sempre un verbo al presente indicativo, perché è il tempo verbale che meglio esprime la relazione logica tra elementi.</li>
-            </ul>
-          </div>
+        <div class="block">
+          <h3>Quando si usa?</h3>
+          <ul>
+            <li>Per richiamare alla memoria informazioni e contenuti a cui si è stati esposti.</li>
+            <li>Per rappresentare idee già appartenenti al patrimonio cognitivo-culturale.</li>
+            <li>Per provare a fare operazioni di brainstorming.</li>
+            <li>Come anteprima di un’operazione cognitiva di costruzione di una scaletta: scrivo tutto quello che mi viene in mente e poi provo a prendere quanto scritto e produrre una scaletta.</li>
+          </ul>
         </div>
-      </section>
+      </article>
 
-      <!-- DESTRA: QUANDO SI USA -->
-      <section class="panel" aria-label="Quando si usa">
-        <h1 class="panel-title">Quando si usa?</h1>
+      <!-- COLONNA: CONCETTUALE -->
+      <article class="panel">
+        <h2 class="panel-title">Concettuale</h2>
 
-        <div class="split">
-          <div class="section">
-            <h2>Mentale</h2>
-            <ul>
-              <li>Per richiamare alla memoria informazioni e contenuti a cui si è stati esposti.</li>
-              <li>Per rappresentare idee già appartenenti al patrimonio cognitivo-culturale.</li>
-              <li>Per provare a fare operazioni di brainstorming.</li>
-              <li>Come anteprima di un’operazione cognitiva di costruzione di una scaletta: scrivo tutto quello che mi viene in mente e poi provo a prendere quanto scritto e produrre una scaletta.</li>
-            </ul>
-          </div>
-
-          <div class="divider" role="separator" aria-label="Separatore"></div>
-
-          <div class="section">
-            <h2>Concettuale</h2>
-            <ul>
-              <li>Per rappresentare graficamente qualcosa che si conosce: la persona può auto-verificare la propria competenza su un argomento e, mentre costruisce la mappa, revisionare le proprie conoscenze.</li>
-              <li>Possono essere costruite insieme a un testo appositamente gerarchizzato e strutturato ed essere utilizzate con l’uso dei <strong>CLOZE</strong>, ovvero esercizi di completamento.</li>
-            </ul>
-          </div>
+        <div class="block">
+          <h3>Caratteristiche</h3>
+          <ul>
+            <li>Le mappe concettuali rispondono sempre a una <strong>domanda focale</strong>: una domanda su un argomento che si conosce e sul quale ci si vuole sfidare nel provare a rispondere. La domanda focale dovrebbe essere pensata da chi fa la mappa.</li>
+            <li>La struttura della mappa va <strong>ALTO</strong> verso <strong>BASSO</strong>: il primo concetto va messo in alto, al centro, ed è il primo a rispondere alla domanda focale. Gli altri concetti si legano al primo e scendono verso il basso.</li>
+            <li>La mappa concettuale è basata sul principio <strong>confessionista</strong>: rappresenta al meglio le <strong>RELAZIONI</strong> tra concetti. Per questa ragione si scrive in modo essenziale, senza articoli, aggettivi, ecc.</li>
+            <li>Ogni connessione è rappresentata da una <strong>freccia</strong> che ha un’<strong>ETICHETTA</strong>. Le etichette sono sempre un verbo al presente indicativo, perché è il tempo verbale che meglio esprime la relazione logica tra elementi.</li>
+          </ul>
         </div>
-      </section>
 
-    </div>
+        <div class="block">
+          <h3>Quando si usa?</h3>
+          <ul>
+            <li>Per rappresentare graficamente qualcosa che si conosce: la persona può auto-verificare la propria competenza su un argomento e, mentre costruisce la mappa, revisionare le proprie conoscenze.</li>
+            <li>Possono essere costruite insieme a un testo appositamente gerarchizzato e strutturato ed essere utilizzate con l’uso dei <strong>CLOZE</strong>, ovvero esercizi di completamento.</li>
+          </ul>
+        </div>
+      </article>
+
+    </section>
 
     <footer>
       Realizzato da <strong>CARLOTTA BORGHETTI</strong> e <strong>ALESSANDRO ZANZO</strong>
