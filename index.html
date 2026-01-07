@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mappificio – Mappe concettuali e mentali</title>
+  <title>Mappificio – Costruisci una mappa</title>
 
   <style>
     :root{
       --bg: #cfcfcf;
       --card: #ffffff;
       --text: #111111;
-      --line: rgba(0,0,0,0.25);
+      --muted: rgba(0,0,0,0.15);
+      --shadow: 0 6px 18px rgba(0,0,0,0.12);
+      --radius: 14px;
     }
 
     *{ box-sizing: border-box; }
@@ -23,104 +25,241 @@
     }
 
     .wrap{
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 18px;
     }
 
-    /* BOTTONI */
-    .buttons{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 20px;
+    /* Piccolo logo */
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
     }
-
-    .btn{
-      background: var(--card);
-      color: var(--text);
-      border-radius: 14px;
-      aspect-ratio: 1 / 1;
-      min-height: 140px;
+    .brand-mark{
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.7);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
       display: grid;
       place-items: center;
-      font-size: clamp(18px, 2.6vw, 30px);
-      font-weight: 700;
-      text-decoration: none;
-      text-align: center;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-      transition: transform .12s ease, box-shadow .12s ease;
-      padding: 14px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+    .brand-title{
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+    }
+    .brand-sub{
+      margin: 0;
+      font-size: 13px;
+      opacity: 0.85;
     }
 
-    .btn:hover{
-      box-shadow: 0 10px 26px rgba(0,0,0,0.16);
-      transform: scale(1.01);
-    }
-
-    .btn:active{
-      transform: scale(0.99);
-    }
-
-    /* COLONNE */
-    .info{
-      background: rgba(255,255,255,0.2);
-      border-radius: 14px;
-      padding: 16px;
-    }
-
-    .cols{
+    .layout{
       display: grid;
-      grid-template-columns: 1fr 1px 1fr;
+      grid-template-columns: 260px 1fr 1fr;
       gap: 16px;
+      align-items: start;
+    }
+
+    .card{
+      background: rgba(255,255,255,0.35);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel{
+      background: rgba(255,255,255,0.25);
+      border-radius: var(--radius);
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel-title{
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .split{
+      display: grid;
+      grid-template-rows: auto 1px auto;
+      gap: 10px;
     }
 
     .divider{
-      background: var(--line);
-      width: 1px;
+      height: 1px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 1px;
     }
 
-    .col{
-      background: rgba(255,255,255,0.45);
+    .section{
+      background: rgba(255,255,255,0.55);
       border-radius: 12px;
-      padding: 14px;
+      padding: 12px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
 
-    h2{
-      margin-top: 0;
-      font-size: 18px;
-    }
-
-    p, ul{
-      font-size: 15px;
-      line-height: 1.5;
+    .section h2{
+      margin: 0 0 8px;
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
     }
 
     ul{
+      margin: 0;
       padding-left: 18px;
+      line-height: 1.45;
+      font-size: 14.5px;
     }
 
-    /* MOBILE */
-    @media (max-width: 700px){
-      .buttons{
-        grid-template-columns: 1fr;
+    .left{
+      display: grid;
+      gap: 12px;
+    }
+
+    /* Sticky area (desktop/tablet) */
+    .sticky{
+      position: sticky;
+      top: 12px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .bigbtn{
+      width: 100%;
+      border: 0;
+      border-radius: var(--radius);
+      background: var(--card);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      padding: 18px 14px;
+      font-size: 18px;
+      font-weight: 900;
+      cursor: pointer;
+      text-align: center;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .bigbtn:hover{ box-shadow: 0 10px 26px rgba(0,0,0,0.16); transform: scale(1.01); }
+    .bigbtn:active{ transform: scale(0.99); }
+    .bigbtn:focus-visible{
+      outline: 3px solid rgba(0,0,0,0.45);
+      outline-offset: 3px;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.55);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 13.5px;
+      line-height: 1.4;
+      border: 1px solid var(--muted);
+    }
+
+    /* MODAL */
+    .modal-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal{
+      width: min(520px, 100%);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.25);
+      padding: 16px;
+    }
+
+    .modal h3{
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .modal p{
+      margin: 0 0 12px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .modal-actions{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .choice{
+      border: 1px solid var(--muted);
+      border-radius: 12px;
+      padding: 12px;
+      background: #fff;
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 15px;
+      text-align: center;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .choice:hover{ box-shadow: 0 10px 22px rgba(0,0,0,0.12); transform: scale(1.01); }
+    .choice:active{ transform: scale(0.99); }
+
+    .modal-footer{
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .close{
+      background: transparent;
+      border: 0;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 700;
+      border-radius: 10px;
+    }
+    .close:hover{ background: rgba(0,0,0,0.06); }
+
+    /* Footer */
+    footer{
+      margin-top: 16px;
+      padding: 14px 12px;
+      text-align: center;
+      font-size: 13px;
+      opacity: 0.85;
+      background: rgba(255,255,255,0.35);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* RESPONSIVE: su mobile la colonna sinistra diventa barra sticky in alto */
+    @media (max-width: 900px){
+      .layout{ grid-template-columns: 1fr; }
+
+      /* La "card" sinistra diventa sticky top bar */
+      .card.left{
+        position: sticky;
+        top: 0;
+        z-index: 900;
+        border-radius: 0 0 var(--radius) var(--radius);
+      }
+      .sticky{
+        position: static; /* evita doppio sticky dentro lo sticky */
       }
 
-      .btn{
-        aspect-ratio: auto;
-        min-height: 110px;
-      }
-
-      .cols{
-        grid-template-columns: 1fr;
-      }
-
-      .divider{
-        width: 100%;
-        height: 1px;
-        margin: 8px 0;
-      }
+      .modal-actions{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -128,56 +267,146 @@
 <body>
   <main class="wrap">
 
-    <section class="buttons">
-      <a class="btn"
-         href="https://sptzetaevi.github.io/mappeconcettuali/"
-         target="_blank"
-         rel="noopener">
-        Mappe concettuali
-      </a>
-
-      <a class="btn"
-         href="https://sptzetaevi.github.io/mappementali/"
-         target="_blank"
-         rel="noopener">
-        Mappe mentali
-      </a>
-    </section>
-
-    <section class="info">
-      <div class="cols">
-
-        <article class="col">
-          <h2>Mappe concettuali</h2>
-          <p>
-            Le mappe concettuali servono per organizzare le informazioni
-            in modo logico e strutturato.
-          </p>
-          <ul>
-            <li>Usano concetti e parole-legame</li>
-            <li>Mostrano relazioni chiare tra le idee</li>
-            <li>Utili per studiare e spiegare</li>
-          </ul>
-        </article>
-
-        <div class="divider"></div>
-
-        <article class="col">
-          <h2>Mappe mentali</h2>
-          <p>
-            Le mappe mentali partono da un’idea centrale
-            e si sviluppano in modo libero e creativo.
-          </p>
-          <ul>
-            <li>Usano parole chiave e associazioni</li>
-            <li>Favoriscono memoria e creatività</li>
-            <li>Utili per brainstorming e sintesi</li>
-          </ul>
-        </article>
-
+    <!-- Logo / Brand -->
+    <header class="brand" aria-label="Mappificio">
+      <div class="brand-mark" aria-hidden="true">M</div>
+      <div>
+        <p class="brand-title">Mappificio</p>
+        <p class="brand-sub">Mappe mentali e mappe concettuali</p>
       </div>
-    </section>
+    </header>
+
+    <div class="layout">
+
+      <!-- SINISTRA -->
+      <aside class="card left">
+        <div class="sticky">
+          <button class="bigbtn" type="button" id="openModalBtn">
+            Costruisci una mappa
+          </button>
+
+          <div class="note">
+            Clicca il bottone e scegli il tipo di mappa:
+            <strong>CONCETTUALE</strong> oppure <strong>MENTALE</strong>.
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTRO: CARATTERISTICHE -->
+      <section class="panel" aria-label="Caratteristiche">
+        <h1 class="panel-title">Caratteristiche</h1>
+
+        <div class="split">
+          <div class="section">
+            <h2>Mentale</h2>
+            <ul>
+              <li>Le mappe mentali devono avere uno sviluppo a raggiera: al centro c’è l’argomento principale, che origina tutti gli altri concetti.</li>
+              <li>Possono svilupparsi anche con una struttura ramificata (struttura ad albero): da un concetto se ne collegano altri, tutti associati a quello.</li>
+              <li>Il criterio di produzione è di tipo associazionista. Esempio: se devo parlare di <strong>SCUOLA</strong>, associo tutto ciò che è logicamente inerente all’argomento.</li>
+              <li>La gerarchia tra i concetti non è assoluta: dipende dal contesto e dal momento. La mappa risponde ai processi associativi personali (conoscenze, cultura, stimoli, ecc.).</li>
+              <li>La mappa ha una forte connotabilità grafica: diventa un disegno con una struttura facilmente riconoscibile, sia nel complesso sia nelle sue parti. I collegamenti possono essere linee dritte o curve (se possibile). Non c’è mai alcuna parola sull’elemento di collegamento.</li>
+            </ul>
+          </div>
+
+          <div class="divider" role="separator" aria-label="Separatore"></div>
+
+          <div class="section">
+            <h2>Concettuale</h2>
+            <ul>
+              <li>Le mappe concettuali rispondono sempre a una <strong>domanda focale</strong>: una domanda su un argomento che si conosce e sul quale ci si vuole sfidare nel provare a rispondere. La domanda focale dovrebbe essere pensata da chi fa la mappa.</li>
+              <li>La struttura della mappa va dall’alto verso il basso: il primo concetto va messo in alto, al centro, ed è il primo a rispondere alla domanda focale. Gli altri concetti si legano al primo e scendono verso il basso.</li>
+              <li>La mappa concettuale è basata sul principio <strong>confessionista</strong>: rappresenta al meglio le <strong>RELAZIONI</strong> tra concetti. Per questa ragione si scrive in modo essenziale, senza articoli, aggettivi, ecc.</li>
+              <li>Ogni connessione è rappresentata da una <strong>freccia</strong> che ha un’<strong>etichetta</strong>. Le etichette sono sempre un verbo al presente indicativo, perché è il tempo verbale che meglio esprime la relazione logica tra elementi.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESTRA: QUANDO SI USA -->
+      <section class="panel" aria-label="Quando si usa">
+        <h1 class="panel-title">Quando si usa?</h1>
+
+        <div class="split">
+          <div class="section">
+            <h2>Mentale</h2>
+            <ul>
+              <li>Per richiamare alla memoria informazioni e contenuti a cui si è stati esposti.</li>
+              <li>Per rappresentare idee già appartenenti al patrimonio cognitivo-culturale.</li>
+              <li>Per provare a fare operazioni di brainstorming.</li>
+              <li>Come anteprima di un’operazione cognitiva di costruzione di una scaletta: scrivo tutto quello che mi viene in mente e poi provo a prendere quanto scritto e produrre una scaletta.</li>
+            </ul>
+          </div>
+
+          <div class="divider" role="separator" aria-label="Separatore"></div>
+
+          <div class="section">
+            <h2>Concettuale</h2>
+            <ul>
+              <li>Per rappresentare graficamente qualcosa che si conosce: la persona può auto-verificare la propria competenza su un argomento e, mentre costruisce la mappa, revisionare le proprie conoscenze.</li>
+              <li>Possono essere costruite insieme a un testo appositamente gerarchizzato e strutturato ed essere utilizzate con l’uso dei <strong>CLOZE</strong>, ovvero esercizi di completamento.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer>
+      Realizzato da <strong>CARLOTTA BORGHETTI</strong> e <strong>ALESSANDRO ZANZO</strong>
+    </footer>
 
   </main>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <h3 id="modalTitle">Che mappa vuoi fare?</h3>
+      <p>Scegli il tipo di mappa: verrai portato alla pagina corretta.</p>
+
+      <div class="modal-actions">
+        <button class="choice" type="button" id="goConcettuale">CONCETTUALE</button>
+        <button class="choice" type="button" id="goMentale">MENTALE</button>
+      </div>
+
+      <div class="modal-footer">
+        <button class="close" type="button" id="closeModalBtn">Chiudi</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const URL_CONCETTUALE = "https://sptzetaevi.github.io/mappeconcettuali/";
+    const URL_MENTALE     = "https://sptzetaevi.github.io/mappementali/";
+
+    const openBtn = document.getElementById("openModalBtn");
+    const backdrop = document.getElementById("modalBackdrop");
+    const closeBtn = document.getElementById("closeModalBtn");
+    const goConc = document.getElementById("goConcettuale");
+    const goMen = document.getElementById("goMentale");
+
+    function openModal(){
+      backdrop.style.display = "flex";
+      goConc.focus();
+    }
+
+    function closeModal(){
+      backdrop.style.display = "none";
+      openBtn.focus();
+    }
+
+    openBtn.addEventListener("click", openModal);
+    closeBtn.addEventListener("click", closeModal);
+
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && backdrop.style.display === "flex") closeModal();
+    });
+
+    goConc.addEventListener("click", () => { window.location.href = URL_CONCETTUALE; });
+    goMen.addEventListener("click", () => { window.location.href = URL_MENTALE; });
+  </script>
 </body>
 </html>
